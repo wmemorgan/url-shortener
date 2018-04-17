@@ -27,17 +27,22 @@ const errorMessage = () => {
   }
 }
 
-app.get('/new/:url(*)', (req, res) => {
-  let newURL = req.url.slice(5);
-  //Validate URL
-  if (validURL.isUri(newURL)) {
+const validateURL = (url) => {
+  if (validURL.isUri(url)) {
     console.log('URL looks good')
-    console.log(newURL);
-    res.send(newURL);
+    console.log(url);
+    return {
+      original_url: url
+    }
   } else {
     console.log(errorMessage());
-    res.send(errorMessage())
+    return errorMessage();
   }
+}
+
+app.get('/new/:url(*)', (req, res) => {
+  let newURL = req.url.slice(5);
+  res.send(validateURL(newURL));
 
 })
 

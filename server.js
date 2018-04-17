@@ -22,13 +22,19 @@ const express = require('express'),
 // console.log(shortid.generate());
 
 //Valid URLs
-let myURL = '1';
+// let myURL = '1';
 
-if (validURL.isUri(myURL)) {
-  console.log('Looks like an URI');
-} else {
-  console.log('Not a URI');
-}
+// if (validURL.isUri(myURL)) {
+//   console.log('Looks like an URI');
+// } else {
+//   console.log('Not a URI');
+// }
+
+app.get('/new/:url(*)', (req, res) => {
+  let newURL = req.url.slice(5);
+  console.log(newURL);
+  res.send(newURL);
+})
 
 app.listen(port, () => {
   console.log("Server is listening on port:", port);

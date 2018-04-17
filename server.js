@@ -28,12 +28,14 @@ const errorMessage = () => {
   }
 }
 
-const validateURL = (url) => {
+const validateURL = (url, host) => {
   if (validURL.isUri(url)) {
     console.log('URL looks good')
     console.log(url);
+    let id = shortid.generate();
     return {
-      original_url: url
+      original_url: url,
+      short_url: host + '/' + id
     }
   } else {
     console.log(errorMessage());
@@ -43,15 +45,12 @@ const validateURL = (url) => {
 
 app.get('/new/:url(*)', (req, res) => {
   let newURL = req.url.slice(5);
-  // res.send(validateURL(newURL));
-  let reqURL = hostURL.format({
+  let serverURL = hostURL.format({
     protocol: req.protocol,
     host: req.get('host'),
-    // pathname: req.originalUrl,
   });
 
-  console.log(reqURL);
-  res.send(reqURL);
+  res.send(validateURL(newURL, serverURL));
 
 })
 

@@ -4,6 +4,7 @@ const express = require('express'),
   mongodb = require('mongodb'),
   path = require('path'),
   shortid = require('shortid'),
+  validURL = require('valid-url'),
   MongoClient = mongodb.MongoClient,
   url = process.env.DBCONNECT,
   port = process.env.PORT || 3000,
@@ -18,7 +19,16 @@ const express = require('express'),
 //   }
 // })
 
-console.log(shortid.generate());
+// console.log(shortid.generate());
+
+//Valid URLs
+let myURL = '1';
+
+if (validURL.isUri(myURL)) {
+  console.log('Looks like an URI');
+} else {
+  console.log('Not a URI');
+}
 
 app.listen(port, () => {
   console.log("Server is listening on port:", port);

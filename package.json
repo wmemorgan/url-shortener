@@ -21,7 +21,8 @@
   "homepage": "https://github.com/wmemorgan/url-shortener#readme",
   "dependencies": {
     "dotenv": "^5.0.1",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "mongodb": "^3.0.6"
   },
   "devDependencies": {
     "nodemon": "^1.17.3"

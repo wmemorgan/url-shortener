@@ -1,6 +1,7 @@
 require('dotenv').load();
 
 const express = require('express'),
+  hostURL = require('url'),
   mongodb = require('mongodb'),
   path = require('path'),
   shortid = require('shortid'),
@@ -42,7 +43,15 @@ const validateURL = (url) => {
 
 app.get('/new/:url(*)', (req, res) => {
   let newURL = req.url.slice(5);
-  res.send(validateURL(newURL));
+  // res.send(validateURL(newURL));
+  let reqURL = hostURL.format({
+    protocol: req.protocol,
+    host: req.get('host'),
+    // pathname: req.originalUrl,
+  });
+
+  console.log(reqURL);
+  res.send(reqURL);
 
 })
 

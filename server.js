@@ -21,19 +21,24 @@ const express = require('express'),
 
 // console.log(shortid.generate());
 
-//Valid URLs
-// let myURL = '1';
-
-// if (validURL.isUri(myURL)) {
-//   console.log('Looks like an URI');
-// } else {
-//   console.log('Not a URI');
-// }
+const errorMessage = () => {
+  return {
+    "error": "Wrong url format, make sure you have a valid protocol and real site." 
+  }
+}
 
 app.get('/new/:url(*)', (req, res) => {
   let newURL = req.url.slice(5);
-  console.log(newURL);
-  res.send(newURL);
+  //Validate URL
+  if (validURL.isUri(newURL)) {
+    console.log('URL looks good')
+    console.log(newURL);
+    res.send(newURL);
+  } else {
+    console.log(errorMessage());
+    res.send(errorMessage())
+  }
+
 })
 
 app.listen(port, () => {

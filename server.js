@@ -7,18 +7,24 @@ const express = require('express'),
   shortid = require('shortid'),
   validURL = require('valid-url'),
   MongoClient = mongodb.MongoClient,
-  url = process.env.DBCONNECT,
+  // url = process.env.DBCONNECT,
+  url = 'mongodb://localhost:27017/example',
   port = process.env.PORT || 3000,
   app = express();
 
-// MongoClient.connect(url, (err, conn) => {
-//   if (err) {
-//     console.log('Unable to connect to the mongoDB server. Error:', err);
-//   } else {
-//     console.log('Connection established to', url);
-//     conn.close();
-//   }
-// })
+MongoClient.connect(url, (err, conn) => {
+  if (err) {
+    console.log('Unable to connect to the mongoDB server. Error:', err);
+  } else {
+    console.log('Connection established to', url);
+    const data = conn.db("example");
+    data.collection("student").find({}).toArray( (err, result) => {
+      if (err) throw err;
+      console.log(result);
+    });
+    conn.close();
+  }
+})
 
 // console.log(shortid.generate());
 

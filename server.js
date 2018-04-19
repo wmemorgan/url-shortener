@@ -7,28 +7,12 @@ const express = require('express'),
   shortid = require('shortid'),
   validURL = require('valid-url'),
   MongoClient = mongodb.MongoClient,
-  // url = process.env.DBCONNECT,
-  url = 'mongodb://localhost:27017/urls',
+  // dbURL = process.env.DBCONNECT,
+  dbURL = 'mongodb://localhost:27017/urls',
   port = process.env.PORT || 3000,
   app = express();
 
-MongoClient.connect(url, (err, conn) => {
-  if (err) {
-    console.log('Unable to connect to the mongoDB server. Error:', err);
-  } else {
-    console.log('Connection established to', url);
-    const data = conn.db("urls"),
-      collection = data.collection("urls");
-    let newURL = { url: "https://wwww.freecodecamp.org", urlid: shortid.generate() }
-    // let newURL = { url: "https://wwww.foo3.com", urlid: "123c" }
-    collection.insertOne(newURL, (err, res) => {
-      if (err) throw err;
-      console.log("1 document inserted");
-      conn.close();
-    });
-    
-  }
-})
+
 
 // console.log(shortid.generate());
 
@@ -43,6 +27,7 @@ const validateURL = (url, host) => {
     console.log('URL looks good')
     console.log(url);
     let id = shortid.generate();
+    insertURL(url, id);
     return {
       original_url: url,
       short_url: host + '/' + id
@@ -51,6 +36,24 @@ const validateURL = (url, host) => {
     console.log(errorMessage());
     return errorMessage();
   }
+}
+
+const insertURL = (url, id) => {
+  MongoClient.connect(dbURL, (err, conn) => {
+    if (err) {
+      console.log('Unable to connect to the mongoDB server. Error:', err);
+    } else {
+      console.log('Connection established to', dbURL);
+      const data = conn.db("urls"),
+        collection = data.collection("urls");
+      let newURL = { url: url, urlid: id }
+      collection.insertOne(newURL, (err, res) => {
+        if (err) throw err;
+        console.log("1 document inserted");
+        conn.close();
+      });
+    }
+  })
 }
 
 app.get('/new/:url(*)', (req, res) => {

@@ -8,7 +8,7 @@ const express = require('express'),
   validURL = require('valid-url'),
   MongoClient = mongodb.MongoClient,
   // url = process.env.DBCONNECT,
-  url = 'mongodb://localhost:27017/example',
+  url = 'mongodb://localhost:27017/urls',
   port = process.env.PORT || 3000,
   app = express();
 
@@ -17,12 +17,16 @@ MongoClient.connect(url, (err, conn) => {
     console.log('Unable to connect to the mongoDB server. Error:', err);
   } else {
     console.log('Connection established to', url);
-    const data = conn.db("example");
-    data.collection("student").find({}).toArray( (err, result) => {
+    const data = conn.db("urls"),
+      collection = data.collection("urls");
+    let newURL = { url: "https://wwww.freecodecamp.org", urlid: shortid.generate() }
+    // let newURL = { url: "https://wwww.foo3.com", urlid: "123c" }
+    collection.insertOne(newURL, (err, res) => {
       if (err) throw err;
-      console.log(result);
+      console.log("1 document inserted");
+      conn.close();
     });
-    conn.close();
+    
   }
 })
 

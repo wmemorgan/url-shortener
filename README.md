@@ -7,18 +7,28 @@
     4.  When I visit that shortened URL, it will redirect me to my original link.
   
 ### Example creation usage:
-```https://https://wme-url-shortener.glitch.me/new/https://www.google.com```
+```
+https://https://wme-url-shortener.glitch.me/new/https://www.google.com
+```
 
 
 ### Example creation output
 ```
+<span style="color:red">
 { "original_url":"https://www.google.com", "short_url":"https://https://wme-url-shortener.glitch.me/ryPTR_HnG}
+</span>
 ```
 
 ### Usage:
 ```
+<span style="color:red">
 https://https://wme-url-shortener.glitch.me/ryPTR_HnG
+</span>
 ```
 
 ### Will redirect to:
-```https://www.google.com```
+```
+<span style="color:red">
+https://www.google.com
+</span>
+```

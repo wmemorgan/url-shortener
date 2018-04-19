@@ -46,7 +46,7 @@ const insertURL = (url, id) => {
       console.log('Connection established to', dbURL);
       const data = conn.db("urls"),
         collection = data.collection("urls");
-      let newURL = { url: url, urlid: id }
+      let newURL = { original_url: url, urlid: id }
       collection.insertOne(newURL, (err, res) => {
         if (err) throw err;
         console.log("1 document inserted");
@@ -65,6 +65,28 @@ app.get('/new/:url(*)', (req, res) => {
 
   res.send(validateURL(newURL, serverURL));
 
+})
+
+app.get('/:shorturl(*)', (req, res) => {
+  let shorturl = req.url.slice(1);
+  console.log("The shorturl is:", shorturl);
+  MongoClient.connect(dbURL, (err, conn) => {
+    if (err) {
+      console.log('Unable to connect to the mongoDB server. Error:', err);
+    } else {
+      console.log('Connection established to', dbURL);
+      const data = conn.db("urls"),
+        collection = data.collection("urls");
+      collection.findOne({'urlid': shorturl}, (err, doc) => {
+        if (doc != null) {
+          res.redirect(doc.original_url);
+        } else {
+          res.json({error: "link not found in the database."});
+        }
+        conn.close();
+      });
+    } 
+  });
 })
 
 app.listen(port, () => {

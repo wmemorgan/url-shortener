@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>URL Shortener Microservice</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="public/style.css" />
+</head>
+<body>
+  <h1>URL Shortener Microservice</h1>
+
+  <h4>User Stories:</h4>
+  <blockquote>
+    <ol>
+      <li>I can pass a URL as a parameter and I will receive a shortened URL in the JSON response.</li>
+      <li>
+         If I pass an invalid URL that doesn't follow the valid http://www.example.com format, the JSON response will contain
+        an error instead.
+      </li>
+      <li>When I visit that shortened URL, it will redirect me to my original link.</li>
+    </ol> 
+  </blockquote>
+
+  <h4>Example creation:</h4>
+  <blockquote>
+      <code>https://wme-url-shortener.glitch.me/new/https://www.google.com</code>
+  </blockquote>
+
+
+  <h4>Example output:</h4>
+  <blockquote>
+    <code>
+      { "original_url":"https://www.google.com", "short_url":"https://wme-url-shortener.glitch.me/ryPTR_HnG }
+    </code>
+  </blockquote>
+  
+
+  <h4>The new url:</h4>
+  <blockquote>
+    <code>https://wme-url-shortener.glitch.me/ryPTR_HnG</code>
+  </blockquote>
+
+  <h4>Will redirect to:</h4>
+  <blockquote>
+    <code>https://www.google.com</code>
+  </blockquote>
+  
+</body>
+
+</html>

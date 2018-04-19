@@ -13,9 +13,6 @@ const express = require('express'),
   app = express();
 
 
-
-// console.log(shortid.generate());
-
 const errorMessage = () => {
   return {
     "error": "Wrong url format, make sure you have a valid protocol and real site." 
@@ -55,6 +52,12 @@ const insertURL = (url, id) => {
     }
   })
 }
+
+app.use('/public', express.static(process.cwd() + '/public'));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + '/views/index.html'));
+})
 
 app.get('/new/:url(*)', (req, res) => {
   let newURL = req.url.slice(5);

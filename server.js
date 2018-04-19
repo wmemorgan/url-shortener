@@ -75,8 +75,8 @@ app.get('/:shorturl(*)', (req, res) => {
       console.log('Unable to connect to the mongoDB server. Error:', err);
     } else {
       console.log('Connection established to', dbURL);
-      const data = conn.db("urls"),
-        collection = data.collection("url-shortdb");
+      const data = conn.db("url-shortdb"),
+        collection = data.collection("urls");
       collection.findOne({'urlid': shorturl}, (err, doc) => {
         if (doc != null) {
           res.redirect(doc.original_url);

@@ -13,22 +13,16 @@ https://https://wme-url-shortener.glitch.me/new/https://www.google.com
 
 
 ### Example creation output
-```
-<span style="color:red">
+```json
 { "original_url":"https://www.google.com", "short_url":"https://https://wme-url-shortener.glitch.me/ryPTR_HnG}
-</span>
 ```
 
 ### Usage:
 ```
-<span style="color:red">
 https://https://wme-url-shortener.glitch.me/ryPTR_HnG
-</span>
 ```
 
 ### Will redirect to:
 ```
-<span style="color:red">
 https://www.google.com
-</span>
 ```

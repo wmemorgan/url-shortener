@@ -7,8 +7,8 @@ const express = require('express'),
   shortid = require('shortid'),
   validURL = require('valid-url'),
   MongoClient = mongodb.MongoClient,
-  // dbURL = process.env.DBCONNECT,
-  dbURL = 'mongodb://localhost:27017/urls',
+  dbURL = process.env.DBCONNECT,
+  // dbURL = 'mongodb://localhost:27017/urls',
   port = process.env.PORT || 3000,
   app = express();
 
@@ -44,7 +44,7 @@ const insertURL = (url, id) => {
       console.log('Unable to connect to the mongoDB server. Error:', err);
     } else {
       console.log('Connection established to', dbURL);
-      const data = conn.db("urls"),
+      const data = conn.db("url-shortdb"),
         collection = data.collection("urls");
       let newURL = { original_url: url, urlid: id }
       collection.insertOne(newURL, (err, res) => {
@@ -76,7 +76,7 @@ app.get('/:shorturl(*)', (req, res) => {
     } else {
       console.log('Connection established to', dbURL);
       const data = conn.db("urls"),
-        collection = data.collection("urls");
+        collection = data.collection("url-shortdb");
       collection.findOne({'urlid': shorturl}, (err, doc) => {
         if (doc != null) {
           res.redirect(doc.original_url);

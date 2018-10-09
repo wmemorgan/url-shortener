@@ -1,5 +1,7 @@
 # URL Shortener Microservice
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/wmemorgan/url-shortener.svg)](https://greenkeeper.io/)
+
 ### User Stories:
     1.  I can pass a URL as a parameter and I will receive a shortened URL in the JSON response.
     2.  If I pass an invalid URL that doesn't follow the valid http://www.example.com format, the JSON response will contain an error instead.
